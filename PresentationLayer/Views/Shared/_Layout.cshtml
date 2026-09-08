@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>@ViewData["Title"] - ITI Management</title>
+    <style>
+            @@layer base {
+                html, body {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                body {
+                    overscroll-behavior: none;
+                }
+
+                main > :first-child {
+                    margin-top: 0 !important;
+                }
+
+                main > :last-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+
+            ::-webkit-scrollbar {
+                display: none;
+            }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-secondary-fixed-variant": "#003ea8", "surface-dim": "#dcd9db", "surface-container-low": "#f6f3f5", "surface-variant": "#e4e2e4", "inverse-surface": "#303032", "on-secondary": "#ffffff", "on-tertiary-fixed-variant": "#574425", "on-primary-container": "#7c839b", "inverse-primary": "#bec6e0", "on-tertiary-container": "#98805d", "inverse-on-surface": "#f3f0f2", "on-tertiary-fixed": "#271901", "on-surface-variant": "#45464d", "on-tertiary": "#ffffff", "surface": "#fcf8fa", "tertiary-fixed-dim": "#dec29a", "on-secondary-fixed": "#00174b", "surface-container-high": "#eae7e9", "on-background": "#1b1b1d", "background": "#fcf8fa", "error": "#ba1a1a", "on-primary": "#ffffff", "surface-container-highest": "#e4e2e4", "error-container": "#ffdad6", "secondary": "#0051d5", "primary": "#000000", "on-secondary-container": "#fefcff", "on-surface": "#1b1b1d", "tertiary-fixed": "#fcdeb5", "surface-bright": "#fcf8fa", "on-error": "#ffffff", "on-error-container": "#93000a", "tertiary": "#000000", "surface-tint": "#565e74", "on-primary-fixed": "#131b2e", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#bec6e0", "secondary-fixed-dim": "#b4c5ff", "secondary-container": "#316bf3", "surface-container": "#f0edef", "on-primary-fixed-variant": "#3f465c", "primary-container": "#131b2e", "outline-variant": "#c6c6cd", "outline": "#76777d", "secondary-fixed": "#dbe1ff", "tertiary-container": "#271901", "primary-fixed": "#dae2fd"
+                        },
+                        "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                        "spacing": { "space-2xs": "0.25rem", "space-xl": "2rem", "space-3xs": "0.125rem", "space-2xl": "3rem", "grid-gutter": "1.5rem", "space-xs": "0.5rem", "space-md": "1rem", "space-lg": "1.5rem", "space-sm": "0.75rem", "container-margin": "2rem" },
+                        "fontFamily": { "headline-md": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Inter"], "label-md": ["Inter"], "headline-xl": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"] },
+                        "fontSize": { "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }] }
+                    }
+                }
+            }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+    <div class="fixed inset-0 bg-black/40 z-40 hidden md:hidden" id="sidebar-backdrop"></div>
+
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-full w-[64px] md:hover:w-[240px] group transition-all duration-300 bg-surface-container-low z-50 flex flex-col justify-between py-6 overflow-x-hidden shadow-sm" id="app-sidebar">
+        <div class="flex flex-col">
+            <div class="px-space-md mb-space-xl flex items-center justify-between gap-space-xs">
+                <div class="flex items-center gap-space-sm">
+                    <span class="material-symbols-outlined text-primary text-[24px] flex-shrink-0">school</span>
+                    <span data-sidebar-text class="font-headline-sm text-on-surface tracking-tight opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">ITI Management</span>
+                </div>
+                <button class="hidden md:flex p-1 text-on-surface-variant hover:text-on-surface rounded" id="sidebar-toggle">
+                    <span class="material-symbols-outlined text-[20px]">menu</span>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-space-3xs px-space-xs md:px-space-sm">
+                <a asp-controller="Home" asp-action="Index" class="relative group/tip flex items-center gap-space-sm px-space-xs md:px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-[20px] flex-shrink-0">dashboard</span>
+                    <span data-sidebar-text class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Dashboard</span>
+                </a>
+                <a asp-controller="Departments" asp-action="Index" class="relative group/tip flex items-center gap-space-sm px-space-xs md:px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-[20px] flex-shrink-0">apartment</span>
+                    <span data-sidebar-text class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Departments</span>
+                </a>
+                <a asp-controller="Courses" asp-action="Index" class="relative group/tip flex items-center gap-space-sm px-space-xs md:px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-[20px] flex-shrink-0">book</span>
+                    <span data-sidebar-text class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Courses</span>
+                </a>
+                <a asp-controller="Instructors" asp-action="Index" class="relative group/tip flex items-center gap-space-sm px-space-xs md:px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-[20px] flex-shrink-0">supervisor_account</span>
+                    <span data-sidebar-text class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Instructors</span>
+                </a>
+            </nav>
+        </div>
+        <div class="px-space-xs md:px-space-md flex flex-col gap-space-3xs">
+            <div class="pt-space-md mt-space-sm border-t border-surface-variant flex items-center justify-between px-space-xs md:px-space-sm overflow-hidden">
+                <div class="flex items-center gap-space-sm">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+                    </div>
+                    <div class="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        <span class="text-label-sm font-medium text-on-surface">Admin User</span>
+                        <span class="text-body-sm text-on-surface-variant">admin@iti.edu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Header -->
+    <div class="pl-[64px] transition-all duration-300" id="main-wrapper">
+        <header class="fixed top-0 left-0 md:left-[64px] right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-xl transition-all duration-300" id="app-header">
+            <div class="flex items-center gap-space-md">
+                <button class="md:hidden p-space-xs text-on-surface-variant hover:text-on-surface" id="mobile-menu-btn">
+                    <span class="material-symbols-outlined text-[24px]">menu</span>
+                </button>
+                <div class="flex items-center gap-space-sm text-on-surface-variant text-body-md">
+                    <span class="material-symbols-outlined text-[18px]">home</span>
+                    <span>/</span>
+                    <span class="text-on-surface font-medium">@ViewData["Title"]</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- THIS IS WHERE YOUR PAGES GET INJECTED -->
+        <main class="relative pt-16 bg-surface min-h-screen p-space-xl">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+            const sidebar = document.getElementById('app-sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            const mainWrapper = document.getElementById('main-wrapper');
+            const header = document.getElementById('app-header');
+            const sidebarTextElems = document.querySelectorAll('[data-sidebar-text]');
+
+            let isExpanded = false;
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', () => {
+                    isExpanded = !isExpanded;
+                if (isExpanded) {
+                        sidebar.classList.remove('w-[64px]'); sidebar.classList.add('w-[240px]');
+                        mainWrapper.classList.remove('md:pl-[64px]'); mainWrapper.classList.add('md:pl-[240px]');
+                        header.classList.remove('md:left-[64px]'); header.classList.add('md:left-[240px]');
+                    // when programmatically expanded, force the sidebar texts to be visible
+                    sidebarTextElems.forEach(e => e.style.opacity = '1');
+                    } else {
+                        sidebar.classList.remove('w-[240px]'); sidebar.classList.add('w-[64px]');
+                        mainWrapper.classList.remove('md:pl-[240px]'); mainWrapper.classList.add('md:pl-[64px]');
+                        header.classList.remove('md:left-[240px]'); header.classList.add('md:left-[64px]');
+                    // restore opacity to let CSS hover handle visibility
+                    sidebarTextElems.forEach(e => e.style.opacity = '');
+                    }
+                });
+            }
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

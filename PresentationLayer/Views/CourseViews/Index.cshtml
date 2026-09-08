@@ -1,0 +1,151 @@
+﻿@{
+    ViewData["Title"] = "Courses";
+}
+@model IEnumerable<DataAccessLayer.Models.Course>
+<div class="flex flex-col w-full">
+    <!-- Top Stats & Action Bar -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-lg mb-space-2xl">
+        <div>
+            <div class="flex items-center gap-space-xs mb-space-2xs">
+                <span class="text-label-sm uppercase tracking-widest text-on-surface-variant font-medium">Curriculum Operations</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                <span class="text-label-sm text-secondary font-medium">Active Courses</span>
+            </div>
+            <h1 class="font-headline-xl text-on-surface tracking-tight">Courses Management</h1>
+        </div>
+        <div class="flex items-center gap-space-md">
+            <a asp-controller="Courses" asp-action="Create" class="flex items-center gap-space-xs px-space-lg py-space-sm bg-primary text-on-primary rounded-xl font-label-md hover:opacity-90 transition-opacity shadow-sm">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span>Add Course</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Bento Grid Overview Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-space-lg mb-space-2xl">
+        <div class="bg-surface-container-low rounded-xl p-space-lg relative overflow-hidden shadow-sm">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-body-sm text-on-surface-variant">Total Courses</span>
+                <span class="material-symbols-outlined text-secondary text-[24px]">book</span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-on-surface">@Model.Count()</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-low rounded-xl p-space-lg relative overflow-hidden shadow-sm">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-body-sm text-on-surface-variant">Avg. Min. Degree</span>
+                <span class="material-symbols-outlined text-secondary text-[24px]">verified</span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-on-surface">@(Model.Any() ? Model.Average(c => c.MinDegree).ToString("0.#") : "0")%</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-low rounded-xl p-space-lg relative overflow-hidden shadow-sm">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-body-sm text-on-surface-variant">Departments</span>
+                <span class="material-symbols-outlined text-secondary text-[24px]">apartment</span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-on-surface">@Model.Where(c => c.Department != null).Select(c => c.DepartmentId).Distinct().Count()</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-low rounded-xl p-space-lg relative overflow-hidden shadow-sm">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-body-sm text-on-surface-variant">Trainers</span>
+                <span class="material-symbols-outlined text-secondary text-[24px]">supervisor_account</span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-on-surface">@Model.Where(c => c.InstructorId != null).Select(c => c.InstructorId).Distinct().Count()</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container (Courses Table & Search) -->
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-xl flex flex-col gap-space-lg">
+        <!-- Table Header Toolbar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+            <div class="relative flex-1 max-w-md">
+                <span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+                <input class="w-full bg-surface-container-low text-on-surface text-body-md pl-12 pr-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all" id="course-search" placeholder="Search by course name, instructor, or department..." type="text" />
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto min-w-0">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-surface-variant/40 text-on-surface-variant text-label-sm">
+                        <th class="py-space-md px-space-md font-medium">Course Name</th>
+                        <th class="py-space-md px-space-md font-medium">Minimum Degree</th>
+                        <th class="py-space-md px-space-md font-medium">Department</th>
+                        <th class="py-space-md px-space-md font-medium">Lead Instructor</th>
+                        <th class="py-space-md px-space-md font-medium text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-body-md text-on-surface divide-y divide-surface-variant/20" id="courses-table-body">
+
+                    @foreach (var course in Model)
+                    {
+                        <tr class="hover:bg-surface-container-low/50 transition-colors group">
+                            <td class="py-space-md px-space-md">
+                                <div class="flex items-center gap-space-md">
+                                    <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm flex-shrink-0">
+                                        <span class="material-symbols-outlined text-[20px]">code</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-headline-sm text-on-surface">@course.Name</div>
+                                        <div class="text-body-sm text-on-surface-variant">ID: @course.Id</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-space-md px-space-md">
+                                <div class="inline-flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm">
+                                    <span class="material-symbols-outlined text-[14px]">grade</span>
+                                    <span>@course.MinDegree%</span>
+                                </div>
+                            </td>
+                            <td class="py-space-md px-space-md">
+                                <span class="text-on-surface-variant font-medium">@(course.Department?.Name ?? "No Department")</span>
+                            </td>
+                            <td class="py-space-md px-space-md">
+                                <div class="flex items-center gap-space-xs">
+                                    <span>@(course.Instructor?.Name ?? "Unassigned")</span>
+                                </div>
+                            </td>
+                            <td class="py-space-md px-space-md text-right">
+                                <div class="flex items-center justify-end gap-space-xs">
+                                    <a asp-controller="Courses" asp-action="Edit" asp-route-id="@course.Id" class="p-space-xs text-on-surface-variant hover:text-secondary hover:bg-secondary-fixed/20 rounded-lg transition-colors" title="Edit Course">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                    </a>
+                                    <form asp-controller="Courses" asp-action="Delete" asp-route-id="@course.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this course?');" class="inline">
+                                        <button type="submit" class="p-space-xs text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-lg transition-colors" title="Delete Course">
+                                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const searchInput = document.getElementById('course-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('#courses-table-body tr');
+                rows.forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(term) ? '' : 'none';
+                });
+            });
+        }
+    </script>
+}

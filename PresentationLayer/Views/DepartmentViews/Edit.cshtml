@@ -1,0 +1,82 @@
+﻿@model DataAccessLayer.Models.Department
+
+@{
+    ViewData["Title"] = "Edit Department";
+}
+
+<div class="flex flex-col w-full max-w-4xl mx-auto">
+
+    <!-- Top Action & Title Bar -->
+    <div class="flex items-center justify-between mb-space-xl">
+        <div>
+            <div class="flex items-center gap-space-xs text-on-surface-variant text-label-sm uppercase tracking-wider mb-space-2xs">
+                <span class="material-symbols-outlined text-[14px]">edit_note</span>
+                <span>Organization Structure</span>
+            </div>
+            <h1 class="font-headline-xl text-on-surface tracking-tight">Edit Department</h1>
+        </div>
+        <a asp-action="Index" class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-low border border-outline-variant/30 text-on-surface rounded-xl font-label-md hover:bg-surface-container-high transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span>Back to List</span>
+        </a>
+    </div>
+
+    <!-- Form Container -->
+    <div class="bg-surface-container-low rounded-2xl shadow-sm p-space-xl border border-outline-variant/20">
+
+        <form asp-action="Edit" method="post" class="flex flex-col gap-space-lg">
+
+            <div asp-validation-summary="All" class="text-error text-label-sm bg-error-container/20 rounded-lg p-3 empty:hidden"></div>
+
+            <!-- Hidden ID Field -->
+            <input type="hidden" asp-for="Id" />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+
+                <!-- Department Name Input -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label asp-for="Name" class="text-label-sm font-medium text-on-surface-variant">Department Name</label>
+                    <input asp-for="Name" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm" placeholder="e.g. Computer Science" />
+                    <span asp-validation-for="Name" class="text-error text-[12px] mt-1"></span>
+                </div>
+
+                <!-- Manager Dropdown -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label asp-for="ManagerId" class="text-label-sm font-medium text-on-surface-variant">Department Manager</label>
+                    <select asp-for="ManagerId" asp-items="ViewBag.Instructors" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm">
+                        <option value="">-- Select Manager (Optional) --</option>
+                    </select>
+                    <span asp-validation-for="ManagerId" class="text-error text-[12px] mt-1"></span>
+                </div>
+
+                <!-- Manager Hire Date Input -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label asp-for="Manager_HireDate" class="text-label-sm font-medium text-on-surface-variant">Manager Hire Date</label>
+                    <input asp-for="Manager_HireDate" type="date" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm" />
+                    <span asp-validation-for="Manager_HireDate" class="text-error text-[12px] mt-1"></span>
+                </div>
+
+            </div>
+
+            <div class="border-t border-surface-variant/30 my-space-xs"></div>
+
+            <!-- Submit & Cancel Actions -->
+            <div class="flex items-center justify-end gap-space-sm">
+                <a asp-action="Index" class="px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors text-label-md">
+                    Cancel
+                </a>
+                <button type="submit" class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-xl bg-primary text-on-primary font-label-md hover:bg-primary/90 transition-all shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

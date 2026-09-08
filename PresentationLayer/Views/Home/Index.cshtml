@@ -1,0 +1,210 @@
+﻿@model IEnumerable<DataAccessLayer.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="flex flex-col w-full">
+    <!-- Top Greeting & Overview Banner -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-xl">
+        <div class="flex flex-col gap-space-2xs">
+            <div class="flex items-center gap-space-xs text-on-surface-variant text-label-sm uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                <span>System Status: Operational</span>
+                <span>/</span>
+                <span>Semester 2026-Q1</span>
+            </div>
+            <h1 class="font-headline-xl text-on-surface"><b>Good morning, Admin</b></h1>
+        </div>
+        <div class="flex items-center gap-space-sm">
+            <a asp-controller="Enrollments" asp-action="Create" class="px-space-md py-space-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-opacity flex items-center gap-space-xs shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                New Enrollment
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics Cards Bento Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+
+        <!-- Departments Card -->
+        <a asp-controller="Departments" asp-action="Index" class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
+            <div class="flex items-center justify-between mb-6 relative z-10">
+                <span class="text-[13px] font-semibold text-on-surface-variant uppercase tracking-wider">Departments</span>
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]">apartment</span>
+                </div>
+            </div>
+            <div class="flex flex-col relative z-10">
+                <span class="text-4xl font-bold text-on-surface tracking-tight">@TempData["DepartmentCount"]</span>
+                <div class="flex items-center gap-1 mt-2 text-emerald-600 text-sm font-medium">
+                    <span class="material-symbols-outlined text-[16px]">trending_up</span>
+                    <span>Active directory</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Courses Card -->
+        <a asp-controller="Courses" asp-action="Index" class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-transparent rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
+            <div class="flex items-center justify-between mb-6 relative z-10">
+                <span class="text-[13px] font-semibold text-on-surface-variant uppercase tracking-wider">Courses</span>
+                <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]">book</span>
+                </div>
+            </div>
+            <div class="flex flex-col relative z-10">
+                <span class="text-4xl font-bold text-on-surface tracking-tight">@TempData["CourseCount"]</span>
+                <div class="flex items-center gap-1 mt-2 text-emerald-600 text-sm font-medium">
+                    <span class="material-symbols-outlined text-[16px]">trending_up</span>
+                    <span>Curriculum active</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Instructors Card -->
+        <a asp-controller="Instructors" asp-action="Index" class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-32 h-32 bg-gradient-to-br from-amber-500/10 to-transparent rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
+            <div class="flex items-center justify-between mb-6 relative z-10">
+                <span class="text-[13px] font-semibold text-on-surface-variant uppercase tracking-wider">Instructors</span>
+                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]">supervisor_account</span>
+                </div>
+            </div>
+            <div class="flex flex-col relative z-10">
+                <span class="text-4xl font-bold text-on-surface tracking-tight">@TempData["InstructorCount"]</span>
+                <div class="flex items-center gap-1 mt-2 text-on-surface-variant text-sm font-medium">
+                    <span class="material-symbols-outlined text-[16px]">groups</span>
+                    <span>Faculty members</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Trainees Card -->
+        <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-32 h-32 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-full blur-2xl"></div>
+            <div class="flex items-center justify-between mb-6 relative z-10">
+                <span class="text-[13px] font-semibold text-on-surface-variant uppercase tracking-wider">Trainees</span>
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]">school</span>
+                </div>
+            </div>
+            <div class="flex flex-col relative z-10">
+                <span class="text-4xl font-bold text-on-surface tracking-tight">@TempData["TraineeCount"]</span>
+                <div class="flex items-center gap-1 mt-2 text-emerald-600 text-sm font-medium">
+                    <span class="material-symbols-outlined text-[16px]">trending_up</span>
+                    <span>Enrolled students</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enrollments Standout Card -->
+        <a asp-controller="Enrollments" asp-action="Index" class="bg-secondary rounded-2xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group sm:col-span-2 lg:col-span-1">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+            <div class="flex items-center justify-between mb-6 relative z-10">
+                <span class="text-[13px] font-semibold text-white/80 uppercase tracking-wider">Enrollments</span>
+                <div class="w-12 h-12 rounded-xl bg-white/20 text-white flex items-center justify-center backdrop-blur-sm border border-white/20 shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]">assignment</span>
+                </div>
+            </div>
+            <div class="flex flex-col relative z-10">
+                <span class="text-4xl font-bold text-white tracking-tight">@TempData["EnrollmentCount"]</span>
+                <div class="flex items-center gap-1 mt-2 text-white/90 text-sm font-medium">
+                    <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                    <span>Active records</span>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- Main Content Split Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-grid-gutter mb-space-2xl">
+
+        <!-- Recent Enrollments Table Section (Dynamic Database Data) -->
+        <div class="lg:col-span-8 bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col">
+            <div class="flex items-center justify-between mb-space-lg">
+                <div>
+                    <h2 class="font-headline-md text-on-surface">Recent Enrollments</h2>
+                    <p class="font-body-sm text-on-surface-variant">Latest active track registrations from database</p>
+                </div>
+                <a asp-controller="Enrollments" asp-action="Index" class="text-secondary font-label-md hover:underline flex items-center gap-space-2xs">
+                    View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-surface-variant/30 text-label-sm text-on-surface-variant uppercase tracking-wider">
+                            <th class="py-space-sm px-space-xs font-medium">Course Track</th>
+                            <th class="py-space-sm px-space-xs font-medium">Department</th>
+                            <th class="py-space-sm px-space-xs font-medium">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-surface-variant/20 text-body-md">
+                        @if (Model != null && Model.Any())
+                        {
+                        @foreach (var enrollment in Model.Take(5))
+                            {
+                                <tr class="hover:bg-surface-container-high/50 transition-colors">
+                                    <td class="py-space-md px-space-xs text-on-surface font-medium">@enrollment.Course?.Name</td>
+                                    <td class="py-space-md px-space-xs text-on-surface-variant">@(enrollment.Course?.Department?.Name ?? "General Track")</td>
+                                    <td class="py-space-md px-space-xs">
+                                        <span class="inline-flex items-center px-space-xs py-space-3xs rounded-full text-label-sm bg-secondary-fixed text-on-secondary-fixed font-medium">Active Track</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="py-space-xl text-center text-on-surface-variant">No active records found.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quick Actions & System Highlights -->
+        <div class="lg:col-span-4 flex flex-col gap-grid-gutter">
+
+            <div class="bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col">
+                <h2 class="font-headline-md text-on-surface mb-space-xs">Quick Actions</h2>
+                <p class="font-body-sm text-on-surface-variant mb-space-lg">Frequently used administrative tools</p>
+                <div class="grid grid-cols-2 gap-space-sm">
+                    <a asp-controller="Instructors" asp-action="Create" class="p-space-md bg-surface-container-high hover:bg-surface-container-highest transition-colors rounded-xl flex flex-col items-center text-center gap-space-sm group">
+                        <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-[20px]">person_add</span>
+                        </div>
+                        <span class="font-label-md text-on-surface">Add Instructor</span>
+                    </a>
+                    <a asp-controller="Courses" asp-action="Create" class="p-space-md bg-surface-container-high hover:bg-surface-container-highest transition-colors rounded-xl flex flex-col items-center text-center gap-space-sm group">
+                        <div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-[20px]">library_add</span>
+                        </div>
+                        <span class="font-label-md text-on-surface">New Course</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-primary-container text-on-primary-container rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary/10 rounded-full blur-2xl"></div>
+                <div class="flex items-center justify-between mb-space-md relative z-10">
+                    <span class="text-label-sm font-medium uppercase tracking-wider text-on-primary-container/80">Track Capacity</span>
+                    <span class="material-symbols-outlined text-secondary">analytics</span>
+                </div>
+                <div class="flex flex-col mb-space-lg relative z-10">
+                    <span class="font-headline-lg text-on-primary mb-space-2xs">@ViewBag.TrackCapacityPercent% Overall Capacity</span>
+                    <p class="font-body-sm text-on-primary-container">Smart allocation active across Smart Village &amp; Alexandria branches.</p>
+                </div>
+                <div class="w-full bg-surface-variant/20 h-2 rounded-full overflow-hidden relative z-10">
+                    <div class="bg-secondary h-full rounded-full" style="width:@ViewBag.TrackCapacityPercent%"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

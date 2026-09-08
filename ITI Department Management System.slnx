@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BLogicLayer/BLogicLayer.csproj" Id="731342ad-c378-4309-9f81-07cc260b41eb" />
+  <Project Path="DataAccessLayer/DataAccessLayer.csproj" />
+  <Project Path="PresentationLayer/PresentationLayer.csproj" />
+</Solution>

@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "New Enrollment";
+}
+
+<div class="flex flex-col w-full max-w-4xl mx-auto">
+
+    <!-- Top Action & Title Bar -->
+    <div class="flex items-center justify-between mb-space-xl">
+        <div>
+            <div class="flex items-center gap-space-xs text-on-surface-variant text-label-sm uppercase tracking-wider mb-space-2xs">
+                <span class="material-symbols-outlined text-[14px]">assignment</span>
+                <span>Candidate Admissions</span>
+            </div>
+            <h1 class="font-headline-xl text-on-surface tracking-tight">New Candidate Enrollment</h1>
+        </div>
+        <a asp-action="Index" class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-low border border-outline-variant/30 text-on-surface rounded-xl font-label-md hover:bg-surface-container-high transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span>Back to Enrollments</span>
+        </a>
+    </div>
+
+    <!-- Form Container -->
+    <div class="bg-surface-container-low rounded-2xl shadow-sm p-space-xl border border-outline-variant/20">
+
+        <form asp-action="Create" method="post" class="flex flex-col gap-space-lg">
+
+            <div asp-validation-summary="All" class="text-error text-label-sm bg-error-container/20 rounded-lg p-3 empty:hidden"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+
+                <!-- Trainee Name Input -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label class="text-label-sm font-medium text-on-surface-variant">Trainee Full Name</label>
+                    <input name="TraineeName" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm" placeholder="e.g. Ahmed Mahmoud" required />
+                </div>
+
+                <!-- Trainee Email Input -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label class="text-label-sm font-medium text-on-surface-variant">Trainee Email</label>
+                    <input name="TraineeEmail" type="email" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm" placeholder="ahmed.m@iti.edu" required />
+                </div>
+
+                <!-- Course Track Dropdown using ViewBag -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label class="text-label-sm font-medium text-on-surface-variant">Course Track List</label>
+                    <select name="CourseId" asp-items="ViewBag.Courses" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm" required>
+                        <option value="">-- Select Course Track --</option>
+                    </select>
+                </div>
+
+                <!-- Admission Status Dropdown -->
+                <div class="flex flex-col gap-space-2xs">
+                    <label class="text-label-sm font-medium text-on-surface-variant">Enrollment Status</label>
+                    <select name="Status" class="w-full bg-surface text-on-surface text-body-md px-space-md py-space-sm rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary transition-all border border-outline-variant/30 shadow-sm">
+                        <option value="Active">Active</option>
+                        <option value="Pending Review">Pending Review</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="border-t border-surface-variant/30 my-space-xs"></div>
+
+            <!-- Submit & Cancel Actions -->
+            <div class="flex items-center justify-end gap-space-sm">
+                <a asp-action="Index" class="px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors text-label-md">
+                    Cancel
+                </a>
+                <button type="submit" class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-xl bg-primary text-on-primary font-label-md hover:bg-primary/90 transition-all shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    <span>Complete Enrollment</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
