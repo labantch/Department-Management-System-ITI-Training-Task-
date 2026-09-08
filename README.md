@@ -2,6 +2,18 @@
 
 A full-stack, N-Tier web application built with **ASP.NET Core MVC** and **Entity Framework Core**. This project serves as an administrative portal to manage educational institute operations, featuring a modern, responsive UI built with custom Tailwind CSS inspired by Material Design 3.
 
+#🎥 Video Demo
+
+
+
+https://github.com/user-attachments/assets/4e10a46f-fb51-43bc-8804-e00c9b27b8aa
+
+
+
+
+
+
+
 ## ✨ Key Features
 
 * **Executive Dashboard:** A Bento-grid dashboard displaying live statistics for departments, courses, instructors, and enrollments.
